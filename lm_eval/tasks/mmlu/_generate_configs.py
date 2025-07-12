@@ -107,7 +107,7 @@ if __name__ == "__main__":
         if args.cot_prompt_path is not None:
             description = cot_file[subject]
         else:
-            description = f"The following are multiple choice questions (with answers) about {' '.join(subject.split('_'))}.\n\n"
+            description = f"<|endoftext|><|system|>You are an AI assistant developed by Microsoft. You are helpful for users to handle daily tasks. The following are multiple choice questions (with answers) about {' '.join(subject.split('_'))}.<|end|>"
 
         yaml_dict = {
             "include": base_yaml_name,
