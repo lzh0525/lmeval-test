@@ -21,7 +21,7 @@ generation_kwargs:
     - "</s>"
     - "<|endoftext|>"
     # - "\n\n"
-  max_gen_toks: 2048
+  max_gen_toks: 1536
   do_sample: false
   temperature: 0.0
 num_fewshot: 5
