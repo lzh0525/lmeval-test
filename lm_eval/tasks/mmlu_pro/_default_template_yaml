@@ -17,14 +17,15 @@ filter_list:
       - function: "take_first"
 generation_kwargs:
   until:
-    - "Question:"
-    - "</s>"
+    # - "Question:"
+    # - "</s>"
     - "<|endoftext|>"
+    - "<|end|>"
     # - "\n\n"
-  max_gen_toks: 768
+  max_gen_toks: 14000
   do_sample: false
   temperature: 0.0
-num_fewshot: 5
+num_fewshot: 0
 metric_list:
   - metric: exact_match
     aggregation: mean
