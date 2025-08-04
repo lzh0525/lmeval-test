@@ -18,6 +18,8 @@ generation_kwargs:
   until:
     - "\n\n"
     - "."
+    - "<|end|>"
+    - "<|endoftext|>"
 metric_list:
   - metric: exact_match
     aggregation: mean
