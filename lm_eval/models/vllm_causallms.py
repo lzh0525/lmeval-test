@@ -348,6 +348,7 @@ class VLLM(TemplateLM):
                 temperature=0, prompt_logprobs=1, max_tokens=1, detokenize=False
             )
         if self.data_parallel_size > 1 and not self.V1:
+            print("Running vLLM in data parallel mode with Ray ...")
             # vLLM hangs if resources are set in ray.remote
             # also seems to only work with decorator and not with ray.remote() fn
             # see https://github.com/vllm-project/vllm/issues/973
@@ -379,6 +380,11 @@ class VLLM(TemplateLM):
             # flatten results
             return undistribute(results)
         elif self.data_parallel_size > 1:
+            print(
+                "Running vLLM in data parallel mode with multiprocessing ... "
+                "This is not recommended, as it may lead to deadlocks and other issues. "
+                "Use ray.data_parallel_size > 1 only if you know what you are doing."
+            )
             # based on https://github.com/vllm-project/vllm/blob/a04720bc36401d831cb048c3917b9e58173d9c1d/examples/offline_inference/data_parallel.py
             dp_size = self.data_parallel_size
             dp_master_ip = os.environ.get("VLLM_DP_MASTER_IP", "127.0.0.1")
@@ -448,6 +454,7 @@ class VLLM(TemplateLM):
                             proc.kill()
 
         else:
+            print("Running vLLM in single process mode ...")
             outputs = self.model.generate(
                 prompt_token_ids=requests,
                 sampling_params=sampling_params,
